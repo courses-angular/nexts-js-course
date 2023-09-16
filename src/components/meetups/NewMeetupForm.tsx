@@ -18,7 +18,6 @@ const NewMeetupForm: FunctionComponent<Props> = ({ onAddMeetup }) => {
     useRef() as React.MutableRefObject<HTMLTextAreaElement>;
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    debugger;
     event.preventDefault();
     const enteredTitle = titleInputRef.current.value;
     const enteredImage = imageInputRef.current.value;

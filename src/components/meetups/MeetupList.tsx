@@ -13,7 +13,7 @@ const MeetupList: FunctionComponent<Props> = ({ meetups }) => {
   return (
     <>
       <ul className={classes.meetups}>
-        {meetups.map((meetup) => {
+        {meetups!.map((meetup) => {
           return <MeetupItem key={meetup.id} {...meetup} />;
         })}
       </ul>
