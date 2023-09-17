@@ -4,17 +4,23 @@ import { Meetup } from "../components/models/meetup";
 const FavoritesContent = createContext({
   favorites: [],
   totalFavorites: 0,
+  addFavorite: (favoriteMeetup: Meetup) => {},
+  removeFavorite: (meetupId: number) => {},
+  itemIsFavorite: (meetupId: number): any => {},
 });
-const FavoritesContentProvider = (props: any) => {
+export const FavoritesContentProvider = (props: any) => {
   const [userFavorites, setUserFavorites] = useState([]);
-  const context = {
-    favorites: userFavorites,
-    totalFavorites: userFavorites.length,
-  };
 
-  function addFavotiesHandler(favoriteMeetup: any) {
+  function addFavoritesHandler(favoriteMeetup: any) {
+    debugger;
     // Update  state depends on previous state
-    setUserFavorites((prevState) => prevState.concat(favoriteMeetup));
+    setUserFavorites((prevState) => {
+      return prevState.concat(favoriteMeetup);
+    });
+
+    console.group("%c GROUP", "color:#84B59F");
+    console.log({ userFavorites });
+    console.groupEnd();
   }
 
   const removeFavoriteHandler = (meetupId: number) => {
@@ -23,8 +29,16 @@ const FavoritesContentProvider = (props: any) => {
     );
   };
 
-  const itemIsFavoriteHandler = (meetupId: number) => {
+  const itemIsFavoriteHandler = (meetupId: number): boolean => {
     return userFavorites.some((meetup: Meetup) => meetup.id === meetupId);
+  };
+
+  const context = {
+    favorites: userFavorites,
+    totalFavorites: userFavorites.length,
+    addFavorite: addFavoritesHandler,
+    removeFavorite: removeFavoriteHandler,
+    itemIsFavorite: itemIsFavoriteHandler,
   };
 
   return (
@@ -33,3 +47,4 @@ const FavoritesContentProvider = (props: any) => {
     </FavoritesContent.Provider>
   );
 };
+export default FavoritesContent;
